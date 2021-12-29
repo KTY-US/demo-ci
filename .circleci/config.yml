@@ -10,10 +10,21 @@ jobs:
             - run:
                   name: Deployment
                   command: echo 'This project has been deployed.'
+    install:
+        - name: Install dependencies
+        run: |
+          if [ -e yarn.lock ]; then
+          yarn install --pure-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
 
 workflows:
     my-pipeline:
         jobs:
+            - install:
             - node/test
             - deploy:
                   requires:
