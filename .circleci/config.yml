@@ -1,0 +1,23 @@
+version: 2.1
+orbs:
+    node: circleci/node@4.7
+
+jobs:
+    deploy:
+        steps:
+            # Do something to deploy project
+            - run:
+                  name: Deployment
+                  command: echo This project has been deployed.
+
+workflows:
+    my-pipeline:
+        jobs:
+            - node/test
+            - deploy:
+                  requires:
+                      - node/test
+                  filters:
+                      branches:
+                          only:
+                              - master
