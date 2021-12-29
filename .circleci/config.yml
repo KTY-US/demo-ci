@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-    node: circleci/node@4.0
+    node: circleci/node@4.7
 jobs:
     deploy:
         machine:
@@ -13,20 +13,16 @@ jobs:
     install:
         steps:
             - run:
-              
-              if [ -e yarn.lock ]; then
-              yarn install --frozen-lockfile
-              elif [ -e package-lock.json ]; then
-              npm ci
-              else
-              npm i
-              fi
+              name: install
+              command: yarn install --pure-lockfile
 
 workflows:
     my-pipeline:
         jobs:
-            - install:
-            - node/test
+            - install
+            - node/test:
+                  requires:
+                      - install
             - deploy:
                   requires:
                       - node/test
