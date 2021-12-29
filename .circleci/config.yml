@@ -1,16 +1,17 @@
 version: 2.1
 orbs:
     node: circleci/node@4.7
-
+    win: circleci/windows@2.3.0
 jobs:
     deploy:
-        machine:
-            image: ubuntu-2004:202010-01
+        # machine:
+        #     image: ubuntu-2004:202010-01
+        executor: win/default
         steps:
             # Do something to deploy project
             - run:
                   name: Deployment
-                  command: echo This project has been deployed.
+                  command: echo 'This project has been deployed.'
 
 workflows:
     my-pipeline:
