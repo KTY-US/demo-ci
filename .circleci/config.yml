@@ -1,33 +1,46 @@
 version: 2.1
 orbs:
     node: circleci/node@4.7
+commands:
+    setup-node-and-yarn-install-with-cache:
+        steps:
+            - node/install:
+                  install-yarn: true
+                  node-version: latest
+            - node/install-packages:
+                  pkg-manager: yarn
+                  cache-key: yarn.lock
 jobs:
     deploy:
-        machine:
-            image: ubuntu-2004:202010-01
+        # machine:
+        #     image: ubuntu-2004:202010-01
         steps:
             # Do something to deploy project
             - run:
                   name: Deployment
                   command: echo 'This project has been deployed.'
-    install:
-        machine:
-            image: ubuntu-2004:202010-01
+    lint-and-test:
+        executor:
+            name: node/default
         steps:
+            - checkout
+            - setup-node-and-yarn-install-with-cache
             - run:
-              name: install
-              command: yarn install --pure-lockfile
-
+                  name: Lint
+                  command: npm run lint
+            - run:
+                  name: Check types
+                  command: npm run check-types
+            - run:
+                  name: Run tests
+                  command: npm run test
 workflows:
     demo-ci:
         jobs:
-            - install
-            - node/test:
-                  requires:
-                      - install
+            - lint-and-test
             - deploy:
                   requires:
-                      - node/test
+                      - lint-and-test
                   filters:
                       branches:
                           only:
