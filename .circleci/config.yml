@@ -1,12 +1,10 @@
 version: 2.1
 orbs:
-    node: circleci/node@4.7
-    win: circleci/windows@2.3.0
+    node: circleci/node@4.0
 jobs:
     deploy:
-        # machine:
-        #     image: ubuntu-2004:202010-01
-        executor: win/default
+        machine:
+            image: ubuntu-2004:202010-01
         steps:
             # Do something to deploy project
             - run:
