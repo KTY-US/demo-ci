@@ -11,13 +11,15 @@ jobs:
                   name: Deployment
                   command: echo 'This project has been deployed.'
     install:
+        machine:
+            image: ubuntu-2004:202010-01
         steps:
             - run:
               name: install
               command: yarn install --pure-lockfile
 
 workflows:
-    my-pipeline:
+    demo-ci:
         jobs:
             - install
             - node/test:
