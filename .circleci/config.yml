@@ -4,8 +4,8 @@ orbs:
 
 jobs:
     deploy:
-      machine:
-            enabled: true
+        machine:
+            image: ubuntu-2004:202010-01
         steps:
             # Do something to deploy project
             - run:
