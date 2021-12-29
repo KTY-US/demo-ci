@@ -12,8 +12,8 @@ jobs:
                   command: echo 'This project has been deployed.'
     install:
         steps:
-            - run: 
-              name: Install dependencies
+            - run:
+              
               if [ -e yarn.lock ]; then
               yarn install --pure-lockfile
               elif [ -e package-lock.json ]; then
