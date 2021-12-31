@@ -65,7 +65,7 @@ workflows:
             #Run your test job
             - test
 
-            #Run your deployment job
+            #Run your deployment job when having commit on the main branch and the test job successfully
             - deploy:
                   requires:
                       - test
